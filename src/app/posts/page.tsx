@@ -1,22 +1,37 @@
-import Image from "next/image";
+import PageTitle from "./pagetitle";
+import Post from "./post";
 
-export default function Posts() {
+export const revalidate = 60;
+
+export type BlogPost = {
+  id: string;
+  title: string;
+  author: string;
+  content: string;
+}
+
+export default async function Posts() {
+  const blogPosts: BlogPost[] = await fetch(
+    'https://api.vercel.app/blog',
+    { next: { revalidate: 60 } }
+  ).then((res) =>
+    res.json()
+  )
+
   return (
     <div className="flex flex-col">
-      <div className="relative">
-        <Image
-          src="/image.jpg"
-          alt="Banner"
-          width={4320}
-          height={1800}
-          className="w-full h-auto"
-        />
-        <div className="absolute p-10 pt-30 inset-0 flex items-center z-10 font-bold text-[var(--text-inverse)] text-3xl max-w-xl">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      <PageTitle title="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
+      <div className="p-10 flex flex-col gap-10">
+        <div className="text-4xl font-bold">
+          Nejnovější
         </div>
-      </div>
-      <div className="p-10">
-        posts
+        <div className="grid gap-8 grid-cols-[repeat(auto-fit,minmax(13rem,1fr))]">
+          {
+            blogPosts.map((blogPost) =>
+              <Post key={blogPost.id} id={blogPost.id} title={blogPost.title} author={blogPost.author} content={blogPost.content} />
+            )
+          }
+        </div>
       </div>
     </div>
   );

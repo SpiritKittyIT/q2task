@@ -3,6 +3,7 @@ import { Roboto, Lora } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
 import { NavBar } from "./navbar";
+import { Toaster } from "react-hot-toast";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -29,13 +30,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${roboto.variable} ${lora.variable}`}>
       <body className="font-[var(--font-lora)] text-[var(--text-primary)] bg-[var(--background)] min-h-screen flex flex-col">
+        <Toaster />
         <header className="bg-[var(--backdrop)] text-[var(--text-inverse)] font-[var(--font-roboto)] px-10 py-4 flex justify-between items-center absolute top-0 w-full z-10">
           <Image
             src="/q2_logo_white1.png"
             alt="Q2 logo"
-            width={81}
-            height={54}
-            priority
+            width={162}
+            height={108}
+            className="w-20 h-auto"
           />
           <NavBar />
         </header>

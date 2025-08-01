@@ -23,7 +23,7 @@ function NavLink({ href, label, activePattern }: NavLinkProps) {
   const isActive = activePattern.test(pathname);
 
   return (
-    <div className={`p-1 border-b-3 ${isActive ? "border-[var(--highlight)]" : "border-transparent"}`}>
+    <div className={`p-1 border-b-3 hover:text-[var(--highlight)] active:text-[var(--highlight-active)] ${isActive ? "border-[var(--highlight)]" : "border-transparent"}`}>
       <Link
         href={href}
       >
