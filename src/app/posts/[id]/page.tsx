@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 }
 
 type PageProps = {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 export default async function PostsDetail({ params }: PageProps) {
